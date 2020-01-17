@@ -16,12 +16,13 @@ const reducer = (state = initialState, action) => {
     }
     if (action.type === 'ADD') {
         return {
-            counter: state.counter + 5
+        //action to po prostu zawartość nawiasów klamrowych w Counter, mapDispatchToProps, dispatch, możemy dodawać type propsów ile chcemy
+            counter: state.counter + action.value
         }
     }
     if (action.type === 'SUBSTRACT') {
         return {
-            counter: state.counter - 5
+            counter: state.counter - action.value
         }
     }
     return state;

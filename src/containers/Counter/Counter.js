@@ -34,6 +34,14 @@ class Counter extends Component {
                 <CounterControl label="Decrement" clicked={this.props.onDecrementCounter}  />
                 <CounterControl label="Add 11" clicked={this.props.onAddCounter}  />
                 <CounterControl label="Subtract 23" clicked={this.props.onSubstractCounter}  />
+                <hr/>
+                <button onClick={this.props.onStoreResult}>Store result</button>
+                <ul>
+                    {this.props.storedResults.map(strResults => (
+                        //musimy dać tutaj key, bo zwracamy tablicę <li> i dlatego w concat w reducerze ustawiliśmy obiekt z unikatowym id
+                        <li key={strResults.id} onClick={this.props.onDeleteResult}>{strResults.value}</li>
+                    ))}
+                </ul>
             </div>
         );
     }
@@ -42,7 +50,8 @@ class Counter extends Component {
 //za pomocą tej funkcji ustawiamy state jako properties i zmieniamy value w CounterOutput ze state.counter na props.ctr (jak counter)
 const mapStateToProps = state => {
     return {
-        ctr: state.counter
+        ctr: state.counter,
+        storedResults: state.results
     }
 };
 
@@ -55,7 +64,10 @@ const mapDispatchToProps = dispatch => {
         onIncrementCounter: () => dispatch({type: 'INCREMENT'}),
         onDecrementCounter: () => dispatch({type: 'DECREMENT'}),
         onAddCounter: () => dispatch({type: 'ADD', value: 11}),
-        onSubstractCounter: () => dispatch({type: 'SUBSTRACT',value: 23})
+        onSubstractCounter: () => dispatch({type: 'SUBSTRACT',value: 23}),
+        onStoreResult: () => dispatch({type: 'STORE_RESULT'}),
+        onDeleteResult: () => dispatch({type: 'DELETE_RESULT'})
+
     }
 };
 

@@ -39,7 +39,7 @@ class Counter extends Component {
                 <ul>
                     {this.props.storedResults.map(strResults => (
                         //musimy dać tutaj key, bo zwracamy tablicę <li> i dlatego w concat w reducerze ustawiliśmy obiekt z unikatowym id
-                        <li key={strResults.id} onClick={this.props.onDeleteResult}>{strResults.value}</li>
+                        <li key={strResults.id} onClick={() => this.props.onDeleteResult(strResults.id)}>{strResults.value}</li>
                     ))}
                 </ul>
             </div>
@@ -66,7 +66,7 @@ const mapDispatchToProps = dispatch => {
         onAddCounter: () => dispatch({type: 'ADD', value: 11}),
         onSubstractCounter: () => dispatch({type: 'SUBSTRACT',value: 23}),
         onStoreResult: () => dispatch({type: 'STORE_RESULT'}),
-        onDeleteResult: () => dispatch({type: 'DELETE_RESULT'})
+        onDeleteResult: (id) => dispatch({type: 'DELETE_RESULT', resultElementId: id})
 
     }
 };

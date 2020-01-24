@@ -40,8 +40,17 @@ const reducer = (state = initialState, action) => {
                 results: state.results.concat({id: new Date, value: state.counter})
             };
         case 'DELETE_RESULT':
-            return {
+            //są dwa sposoby na usunięcie elementu tablicy immutably - 1 poniżej: robimy kopię results, usuwamy obiekt z nowej
+            //i podmieniamy tablice
+            // const id = 2;
+            // const newArray = [...state.results];
+            // newArray.splice(id, 2);
 
+            //filter zwraca nowa tablicę, nie dotyka orginalnej; przyjmuje funkcję jako argument i zwraca true albo false
+            const updatedArray = state.results.filter(result => result.id !== action.resultElementId)
+            return {
+                ...state,
+                results: updatedArray
             };
     }
     return state;

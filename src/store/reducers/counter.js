@@ -1,8 +1,7 @@
-import * as actionTypes from './actions';
+import * as actionTypes from '../actions';
 
 const initialState = {
     counter: 0,
-    results: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,7 +13,7 @@ const reducer = (state = initialState, action) => {
             const newState = Object.assign({}, state);
             newState.counter = state.counter + 1;
             return newState;
-            //nie musimy dawać break bo gdy wykona się jedna akcja nie ma możliwości że uruchomi się druga
+        //nie musimy dawać break bo gdy wykona się jedna akcja nie ma możliwości że uruchomi się druga
         case actionTypes.DECREMENT:
             return {
                 //ALTERNATYWNY SPOSÓB
@@ -33,26 +32,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 counter: state.counter - action.value
-            };
-        case actionTypes.STORE_RESULT:
-            return {
-                ...state,
-                //concat działa jak push, tylko nie wrzuca wartości do starej tablicy, tylko tworzy NOWĄ, która równa sie
-                //starej PLUS argument w nawiasach, dlatego nie powinno sie uzywac push przy metodach ktore powinny byc immutable
-                results: state.results.concat({id: new Date, value: state.counter})
-            };
-        case actionTypes.DELETE_RESULT:
-            //są dwa sposoby na usunięcie elementu tablicy immutably - 1 poniżej: robimy kopię results, usuwamy obiekt z nowej
-            //i podmieniamy tablice
-            // const id = 2;
-            // const newArray = [...state.results];
-            // newArray.splice(id, 2);
-
-            //filter zwraca nowa tablicę, nie dotyka orginalnej; przyjmuje funkcję jako argument i zwraca true albo false
-            const updatedArray = state.results.filter(result => result.id !== action.resultElementId)
-            return {
-                ...state,
-                results: updatedArray
             };
     }
     return state;

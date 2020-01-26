@@ -36,7 +36,9 @@ class Counter extends Component {
                 <CounterControl label="Add 11" clicked={this.props.onAddCounter}  />
                 <CounterControl label="Subtract 23" clicked={this.props.onSubstractCounter}  />
                 <hr/>
-                <button onClick={this.props.onStoreResult}>Store result</button>
+                {/*wcześniej w resultReducer w value było odniesienie do counter. Teraz nadal chcemy otrzymac do niego dostęp*/}
+                {/*więc musimy odwołać się do globalnego counterreducera który jest teraz pobierany z index.js przez ctr poniżej*/}
+                <button onClick={() => this.props.onStoreResult(this.props.ctr)}>Store result</button>
                 <ul>
                     {this.props.storedResults.map(strResults => (
                         //musimy dać tutaj key, bo zwracamy tablicę <li> i dlatego w concat w reducerze ustawiliśmy obiekt z unikatowym id
@@ -51,8 +53,9 @@ class Counter extends Component {
 //za pomocą tej funkcji ustawiamy state jako properties i zmieniamy value w CounterOutput ze state.counter na props.ctr (jak counter)
 const mapStateToProps = state => {
     return {
-        ctr: state.counter,
-        storedResults: state.results
+        //środkowe counter i res biorą się od tych reducerów ustawionych w index.js jako global state
+        ctr: state.counter.counter,
+        storedResults: state.res.results
     }
 };
 
@@ -66,7 +69,9 @@ const mapDispatchToProps = dispatch => {
         onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
         onAddCounter: () => dispatch({type: actionTypes.ADD, value: 11}),
         onSubstractCounter: () => dispatch({type: actionTypes.SUBTRACT,value: 23}),
-        onStoreResult: () => dispatch({type: actionTypes.STORE_RESULT}),
+            //w resultReducer mamy value: action.result, dlatego umieszczamy argument w wywołaniu funkcji i ten argument jest po
+            //dwukropku po STORE_RESULT, result, a pierwsze result to jest własnie to action.result
+        onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result: result}),
         onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElementId: id})
 
     }

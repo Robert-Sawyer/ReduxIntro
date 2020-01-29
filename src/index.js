@@ -8,7 +8,6 @@ import registerServiceWorker from './registerServiceWorker';
 import counterReducer from './store/reducers/counter';
 import resultReducer from './store/reducers/result';
 
-//combineReducer bierze kilka reducerów i łączy je razem w jeden w celu stworzenia store'a
 const rootReducer = combineReducers({
     counter: counterReducer,
     res: resultReducer

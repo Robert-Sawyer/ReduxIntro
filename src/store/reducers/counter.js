@@ -7,6 +7,9 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.INCREMENT:
+            //nie chcemy zmieniać stanu state, czyli mutować go, tylko zachować go jako immutable, skopiować i wstawić nowa wartość
+            //stary state wstawiamy w metodzie assign i klonujemy go w sposób immutable - tworzy NOWY obiekt ze wszystkimi
+            //parametrami starego
             const newState = Object.assign({}, state);
             newState.counter = state.counter + 1;
             return newState;

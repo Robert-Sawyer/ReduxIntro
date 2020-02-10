@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions';
+import * as actionTypes from '../actions/actions';
 
 const initialState = {
     counter: 0,
@@ -25,7 +25,8 @@ const reducer = (state = initialState, action) => {
         case actionTypes.ADD:
             return {
                 ...state,
-                //action to po prostu zawartość nawiasów klamrowych w Counter, mapDispatchToProps, dispatch, możemy dodawać type propsów ile chcemy
+                //action to po prostu zawartość nawiasu klamrowego w metodzie add w actions.js,
+                //możemy dodawać type propsów ile chcemy
                 counter: state.counter + action.value
             };
         case actionTypes.SUBTRACT:

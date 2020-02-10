@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import * as actionCreators from '../../store/actions/actions';
 
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
-import * as actionTypes from '../../store/actions';
 
 class Counter extends Component {
     state = {
@@ -65,14 +65,14 @@ const mapStateToProps = state => {
 //logikę samej akcji ustawiamy natomiast w reducerze ->
 const mapDispatchToProps = dispatch => {
     return {
-        onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
-        onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
-        onAddCounter: () => dispatch({type: actionTypes.ADD, value: 11}),
-        onSubstractCounter: () => dispatch({type: actionTypes.SUBTRACT,value: 23}),
+        onIncrementCounter: () => dispatch(actionCreators.increment()),
+        onDecrementCounter: () => dispatch(actionCreators.decrement()),
+        onAddCounter: () => dispatch(actionCreators.add(11)),
+        onSubstractCounter: () => dispatch(actionCreators.subtract(23)),
             //w resultReducer mamy value: action.result, dlatego umieszczamy argument w wywołaniu funkcji i ten argument jest po
             //dwukropku po STORE_RESULT, result, a pierwsze result to jest własnie to action.result
-        onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result: result}),
-        onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElementId: id})
+        onStoreResult: (result) => dispatch(actionCreators.storeResult(result)),
+        onDeleteResult: (id) => dispatch(actionCreators.deleteResult(id))
 
     }
 };

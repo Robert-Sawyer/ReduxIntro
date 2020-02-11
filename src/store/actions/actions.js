@@ -35,11 +35,21 @@ export const subtract = (val) => {
     };
 };
 
-export const storeResult = (res) => {
+//żeby wykonać kod asynchroniczny (za pomoca settimeout) po zaimportowaniu redux-thunk możemy zmodyfikować actionCreators
+//aby opóźnić asynchronicznie wykonanie storeResult (sposób poniżej)
+export const saveResult = (res) => {
     return {
         type: STORE_RESULT,
         result: res
-    };
+    }
+}
+
+export const storeResult = (res) => {
+    return dispatch => {
+        setTimeout( () => {
+            dispatch(saveResult(res))
+        }, 2000);
+    }
 };
 
 export const deleteResult = (resElId) => {

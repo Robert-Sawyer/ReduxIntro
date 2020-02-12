@@ -11,8 +11,12 @@ export const saveResult = (res) => {
 }
 
 export const storeResult = (res) => {
-    return dispatch => {
+    return (dispatch, getState) => {
         setTimeout( () => {
+//Jeśli chcielibyśmy podejrzeć stary counter (sprzed zmiany w kodzie asynchronicznym) możemy to zrobić w taki sposób:
+//            const oldCounter = getState().ctr.counter;
+//            console.log(oldCounter);
+//robimy to przed dispatchem akcji saveResult, ale nie należy nadużywać tego typu logiki w actionCreators
             dispatch(saveResult(res))
         }, 2000);
     }

@@ -5,6 +5,13 @@ const initialState = {
     results: []
 };
 
+//uproszczenie switcha poprzez dostarczenie mu metody z logiką do case'a
+const deleteResult = (state, action) => {
+    //filter zwraca nowa tablicę, nie dotyka orginalnej; przyjmuje funkcję jako argument i zwraca true albo false
+    const updatedArray = state.results.filter(result => result.id !== action.resultElementId);
+    return updateObject(state, {results: updatedArray});
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.STORE_RESULT:
@@ -19,9 +26,7 @@ const reducer = (state = initialState, action) => {
             // const newArray = [...state.results];
             // newArray.splice(id, 2);
 
-            //filter zwraca nowa tablicę, nie dotyka orginalnej; przyjmuje funkcję jako argument i zwraca true albo false
-            const updatedArray = state.results.filter(result => result.id !== action.resultElementId);
-            return updateObject(state, {results: updatedArray});
+            return deleteResult(state, action);
     }
     return state;
 };
